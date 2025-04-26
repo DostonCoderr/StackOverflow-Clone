@@ -1,0 +1,206 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<style>
+    /* Yuqoridagi CSS stillarini shu yerga joylashtiring */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+    html {
+        background-color: #f1f2f3;
+    }
+
+    body {
+        font-family: "Poppins", sans-serif;
+        height: 100vh;
+        margin: 0;
+        background-color: #f1f2f3;
+    }
+
+    a {
+        color: #0077cc;
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: #005999;
+    }
+
+    .wrapper {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+        min-height: 100vh;
+        padding: 20px;
+    }
+
+    #formContent {
+        border-radius: 8px;
+        background: #fff;
+        padding: 24px;
+        width: 100%;
+        max-width: 340px;
+        position: relative;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    #formFooter {
+        background-color: #f1f2f3;
+        border-top: 1px solid #e4e6e8;
+        padding: 16px;
+        text-align: center;
+        border-radius: 0 0 8px 8px;
+    }
+
+    h2 {
+        text-align: center;
+        font-size: 15px;
+        font-weight: 600;
+        text-transform: uppercase;
+        display: inline-block;
+        margin: 0 16px 16px 16px;
+        color: #6a737c;
+    }
+
+    h2.active {
+        color: #0c0d0e;
+        border-bottom: 2px solid #0077cc;
+    }
+
+    h2.inactive {
+        color: #6a737c;
+    }
+
+    .underlineHover:hover {
+        color: #0c0d0e;
+    }
+
+    form {
+        text-align: left;
+    }
+
+    .form-group {
+        margin-bottom: 16px;
+    }
+
+    label {
+        font-size: 13px;
+        font-weight: 600;
+        color: #0c0d0e;
+        margin-bottom: 4px;
+        display: block;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+        background-color: #fff;
+        border: 1px solid #babfc3;
+        color: #0c0d0e;
+        padding: 8px 10px;
+        font-size: 13px;
+        width: 100%;
+        border-radius: 3px;
+        transition: border-color 0.2s ease-in-out;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+        border-color: #0077cc;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(0, 119, 204, 0.1);
+    }
+
+    input[type="submit"] {
+        background-color: #0095ff;
+        border: none;
+        color: white;
+        padding: 10px;
+        text-align: center;
+        text-decoration: none;
+        display: block;
+        width: 100%;
+        font-size: 13px;
+        border-radius: 3px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.2s ease-in-out;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #0077cc;
+    }
+
+    input[type="submit"]:active {
+        transform: scale(0.98);
+    }
+
+    #formFooter p {
+        font-size: 12px;
+        color: #6a737c;
+        margin: 0;
+    }
+
+    .fadeInDown {
+        animation-name: fadeInDown;
+        animation-duration: 0.5s;
+        animation-fill-mode: both;
+    }
+
+    @keyframes fadeInDown {
+        0% {
+            opacity: 0;
+            transform: translate3d(0, -20px, 0);
+        }
+        100% {
+            opacity: 1;
+            transform: none;
+        }
+    }
+
+    .fadeIn {
+        opacity: 0;
+        animation: fadeIn ease-in 1;
+        animation-fill-mode: forwards;
+        animation-duration: 0.5s;
+    }
+
+    .fadeIn.fourth {
+        animation-delay: 0.4s;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    *:focus {
+        outline: none;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+</style>
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <!-- Tabs Titles -->
+        <h2 class="active"><a href="{% url 'register' %}">Sign Up</a></h2>
+        <h2 class="inactive underlineHover"><a href="{% url 'login' %}">Sign In</a></h2>
+
+        <!-- Register Form -->
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input type="submit" class="fadeIn fourth" value="Sign Up">
+        </form>
+
+        <!-- Form Footer -->
+        <div id="formFooter">
+            <p>Already have an account? <a class="underlineHover" href="{% url 'login' %}">Login</a></p>
+        </div>
+    </div>
+</div>
+{% endblock content %}

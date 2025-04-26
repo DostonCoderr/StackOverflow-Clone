@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="containerr" style="margin-top: 100px; margin-bottom: 130px;">
+    <h3 id="logoutid1" style="text-align: center; font-size: 30px; color: rgb(0, 0, 0); font-weight: 600; font-family: 'Poppins', sans-serif;">
+        You have been logged out!!
+    </h3>
+    <div style="text-align: center; margin: auto; display: flex; justify-content: center;">
+        <button class="btn btn-primary" id="logout-btn">
+            <a id="fa" href="{% url 'login' %}" style="color: white; text-decoration: none;">LOGIN</a>
+        </button>
+    </div>
+</div>
+{% endblock content %}

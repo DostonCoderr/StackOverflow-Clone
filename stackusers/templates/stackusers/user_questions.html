@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container" style="margin-top: 50px;">
+    <h1>Sizning savollaringiz</h1>
+    <p>Jami savollar soni: {{ question_count }}</p>
+    {% if questions %}
+        <ul>
+        {% for question in questions %}
+            <li>
+                <a href="{% url 'stackbase:question-detail' question.pk %}">{{ question.title }}</a>
+                <small>(Yaratilgan: {{ question.date_created|date:"F d, Y" }})</small>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Siz hali hech qanday savol yozmadingiz.</p>
+    {% endif %}
+    <a href="{% url 'profile' %}" class="btn btn-secondary">Profilga qaytish</a>
+</div>
+{% endblock content %}

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load custom_filters %}  <!-- Maxsus filtrlarimizni yuklaymiz -->
+{% block content %}
+<div class="container" style="margin-top: 100px; margin-left: 250px;">
+    <div class="sub-nav">
+        <h1 class="section-title">
+            {% if subcategory %}
+                {{ subcategory|title }} bo‘yicha savollar
+            {% else %}
+                Eng yaxshi savollar
+            {% endif %}
+        </h1>
+        {% if user.is_authenticated %}
+            <a href="{% url 'stackbase:question-create' %}" class="btn btn-blue">Savol so‘rash</a>
+        {% else %}
+            <a href="{% url 'login' %}" class="btn btn-blue">Savol so‘rash</a>
+        {% endif %}
+    </div>
+    <div class="list-question">
+        <div class="questions">
+            {% for question in questions %}
+            <div class="question-item" style="background: #fff; padding: 15px; border-bottom: 1px solid var(--black-150);">
+                <div class="question-header" style="display: flex; justify-content: space-between; align-items: center;">
+                    <h3 style="font-size: 1.7rem; margin: 0;">
+                        <a href="{% url 'stackbase:question-detail' question.id %}" style="color: var(--blue-600); text-decoration: none;">{{ question.title }}</a>
+                    </h3>
+                    <div class="question-meta" style="font-size: 1.2rem; color: var(--black-500);">
+                        <a href="{% url 'profile' %}" style="color: var(--blue-600);">{{ question.user }}</a> tomonidan {{ question.date_created|date:"j F, Y" }} da so‘ralgan
+                    </div>
+                </div>
+                <div class="question-body" style="font-size: 1.3rem; color: var(--black-700); margin: 0.5rem 0;">
+                    {% if question.content|wordcount <= 10 %}
+                        {{ question.content }}
+                    {% else %}
+                        {{ question.content|truncatewords:10 }} <a href="{% url 'stackbase:question-detail' question.id %}" style="color: var(--blue-600);">Ko‘proq o‘qish</a>
+                    {% endif %}
+                </div>
+                <div class="question-tags" style="margin-top: 0.5rem;">
+                    {% if question.tags %}
+                        {% for tag in question.tags|split:"," %}
+                            <span class="tag" style="background-color: var(--black-075); color: var(--black-700); padding: 0.4rem 0.8rem; border-radius: 3px; font-size: 1.2rem; margin-right: 0.5rem;">{{ tag|strip }}</span>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+            {% empty %}
+            <p style="font-size: 1.4rem; color: var(--black-500); margin-top: 2rem;">Bu kategoriyada savollar topilmadi.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock content %}
